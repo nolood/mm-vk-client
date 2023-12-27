@@ -32,6 +32,7 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-floating-promises": "off",
   },
   settings: {
     react: {

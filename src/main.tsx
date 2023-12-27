@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./app/App.tsx";
-import bridge from "@vkontakte/vk-bridge";
+import App from "./app/App";
+import { initVK } from "./app/vk/vk";
 
-bridge.send("VKWebAppInit");
+initVK();
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const root = document.querySelector("#root");
+
+if (root) {
+  ReactDOM.createRoot(root).render(<App />);
+}

@@ -1,1 +1,1 @@
-export { ChakraProvider } from "./chakra-provider";
+export { ChakraUiProvider } from "./chakra-provider";
