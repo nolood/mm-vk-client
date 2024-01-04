@@ -33,6 +33,7 @@ module.exports = {
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-misused-promises": "off",
   },
   settings: {
     react: {
