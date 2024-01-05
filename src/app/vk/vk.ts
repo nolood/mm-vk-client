@@ -1,9 +1,12 @@
-import bridge, { type UserInfo } from "@vkontakte/vk-bridge";
+import bridge from "@vkontakte/vk-bridge";
 import { api, setTokenToHeaders } from "~/shared/api/api";
+import UserModule from "~/entities/user/model/user";
 
 export const initVK = async (): Promise<void> => {
+  const { fetchUserInfo } = UserModule;
+
   await bridge.send("VKWebAppInit");
-  const user: UserInfo = await bridge.send("VKWebAppGetUserInfo");
+  const user = await fetchUserInfo();
   const res = await api.post<string>("/auth/vkminiapp", {
     vk_id: user.id,
     username: `${user.first_name} ${user.last_name}`,
