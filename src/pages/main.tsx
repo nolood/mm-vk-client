@@ -1,24 +1,14 @@
-import { Box, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { type FC } from "react";
-import UserModule from "~/entities/user/model/user";
-import { observer } from "mobx-react-lite";
-import { IoNotifications } from "react-icons/io5";
+import { BillsList, MainHeader } from "~/widgets";
 
-const Main: FC = observer(() => {
-  const { info } = UserModule;
+const Main: FC = () => {
   return (
     <Box>
-      <Flex alignItems={"center"}>
-        <Flex flexDirection={"column"}>
-          <Text color={"gray.500"}>Добро пожаловать,</Text>
-          <Text fontWeight={"bold"} fontSize={"xl"}>
-            {info?.first_name}
-          </Text>
-        </Flex>
-        <Icon as={IoNotifications} w={7} h={7} color={"gray.500"} ml={"auto"} />
-      </Flex>
+      <MainHeader />
+      <BillsList />
     </Box>
   );
-});
+};
 
 export default Main;
