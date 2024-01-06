@@ -1,9 +1,8 @@
-import { type FC, type ReactNode } from "react";
+import { type FC, type ReactNode, useEffect } from "react";
 import { Card, CardBody, Text } from "@chakra-ui/react";
 import { CurrencyFormatter } from "~/shared/ui";
 import { colorizeBalance } from "~/shared/lib/colorize-balance";
-import { motion } from "framer-motion";
-import { billCardAnimation } from "~/features/bill/lib/bill-card-animations";
+import { motion, useAnimation } from "framer-motion";
 
 const BillCard: FC<{
   balance?: number;
@@ -11,11 +10,35 @@ const BillCard: FC<{
   index: number;
   children?: ReactNode;
 }> = ({ balance, title, index, children }) => {
+  const controls = useAnimation();
+
+  const initialState = { opacity: 0.5, scale: 0 };
+
+  useEffect(() => {
+    controls.start({
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.2,
+        delay: index < 20 ? index * 0.01 : 20 * 0.01,
+      },
+    });
+  }, []);
+
   if (children)
-    return <motion.div {...billCardAnimation(index)}>{children}</motion.div>;
+    return (
+      <motion.div
+        initial={initialState}
+        animate={controls}
+        style={{ height: "135px" }}
+      >
+        {children}
+      </motion.div>
+    );
+
   return (
-    <motion.div {...billCardAnimation(index)}>
-      <Card>
+    <motion.div initial={initialState} animate={controls}>
+      <Card h={"135px"}>
         <CardBody gap={2} display={"flex"} flexDirection={"column"}>
           <Text>{title}</Text>
           <Text color={colorizeBalance(balance)} as={"span"}>

@@ -40,10 +40,8 @@ class BillsModule {
 
   createBill = async (title: string, balance: number): Promise<boolean> => {
     try {
-      this.setStatus("loading");
       const res = await api.post<IBill>("/bills", { title, balance });
       this.setBills([...this.bills, res.data]);
-      this.setStatus("success");
       return true;
     } catch (e) {
       this.setStatus("error");
