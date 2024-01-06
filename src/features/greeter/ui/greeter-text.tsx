@@ -13,7 +13,7 @@ const GreeterText: FC = observer(() => {
         <Skeleton w={150} height={"35px"} />
       ) : (
         <Text fontWeight={"bold"} fontSize={"xl"}>
-          {info?.first_name}
+          {info.first_name}
         </Text>
       )}
     </>

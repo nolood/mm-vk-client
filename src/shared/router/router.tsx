@@ -1,6 +1,11 @@
 import { type RouteObject, createBrowserRouter } from "react-router-dom";
-import { LOGIN_ROUTE, MAIN_ROUTE, REGISTER_ROUTE } from "./paths";
-import { LoginPage, MainPage, RegisterPage } from "~/pages";
+import {
+  GREETER_ROUTE,
+  LOGIN_ROUTE,
+  MAIN_ROUTE,
+  REGISTER_ROUTE,
+} from "./paths";
+import { GreeterPage, LoginPage, MainPage, RegisterPage } from "~/pages";
 import { AppRouter } from "~/app/app-router";
 
 export const publicRoutes: RouteObject[] = [
@@ -11,6 +16,10 @@ export const publicRoutes: RouteObject[] = [
   {
     path: REGISTER_ROUTE,
     element: <RegisterPage />,
+  },
+  {
+    path: GREETER_ROUTE,
+    element: <GreeterPage />,
   },
   {
     path: "*",

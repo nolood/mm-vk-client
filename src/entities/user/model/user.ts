@@ -9,6 +9,8 @@ class UserModule {
 
   info: UserInfo | null = null;
 
+  isAuth: boolean = false;
+
   status: StatusType = "idle";
 
   setStatus = (status: StatusType): void => {
@@ -17,6 +19,10 @@ class UserModule {
 
   setInfo = (info: UserInfo | null): void => {
     this.info = info;
+  };
+
+  setIsAuth = (isAuth: boolean): void => {
+    this.isAuth = isAuth;
   };
 
   fetchUserInfo = async (): Promise<UserInfo> => {
@@ -28,6 +34,7 @@ class UserModule {
       return user;
     } catch (e) {
       this.setStatus("error");
+      this.isAuth = false;
     } finally {
       this.setStatus("idle");
     }

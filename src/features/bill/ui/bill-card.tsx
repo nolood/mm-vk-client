@@ -18,7 +18,7 @@ const BillCard: FC<{
       <Card>
         <CardBody gap={2} display={"flex"} flexDirection={"column"}>
           <Text>{title}</Text>
-          <Text color={colorizeBalance(balance)}>
+          <Text color={colorizeBalance(balance)} as={"span"}>
             Баланс:
             <Text fontWeight={"bold"}>
               <CurrencyFormatter balance={balance} />
