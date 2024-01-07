@@ -1,16 +1,13 @@
-import { Box } from "@chakra-ui/react";
 import { type FC } from "react";
 import { BillsList, MainHeader } from "~/widgets";
-import { AppBarProvider } from "~/app/providers";
+import { PageAnim } from "~/shared/ui";
 
 const Main: FC = () => {
   return (
-    <AppBarProvider>
-      <Box>
-        <MainHeader />
-        <BillsList />
-      </Box>
-    </AppBarProvider>
+    <PageAnim>
+      <MainHeader />
+      <BillsList />
+    </PageAnim>
   );
 };
 

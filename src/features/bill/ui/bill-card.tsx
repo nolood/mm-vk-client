@@ -20,7 +20,7 @@ const BillCard: FC<{
       scale: 1,
       transition: {
         duration: 0.2,
-        delay: index < 20 ? index * 0.01 : 20 * 0.01,
+        delay: index < 10 ? index * 0.02 : 10 * 0.02,
       },
     });
   }, []);

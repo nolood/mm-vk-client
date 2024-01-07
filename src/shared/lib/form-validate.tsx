@@ -20,8 +20,8 @@ const useForm = (
   onSubmit: () => void,
 ): UseFormValidation => {
   const [values, setValues] = useState<FormValues>(initialState);
-  const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isValid, setIsValid] = useState<boolean>(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;

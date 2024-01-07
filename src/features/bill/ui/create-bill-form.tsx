@@ -41,7 +41,10 @@ const CreateBillForm: FC<{
   };
 
   const onSubmit = async (): Promise<void> => {
-    const result = createBill(String(values.title), Number(values.balance));
+    const result = await createBill(
+      String(values.title),
+      Number(values.balance),
+    );
     if (result) {
       onClose();
     }

@@ -4,8 +4,15 @@ import {
   LOGIN_ROUTE,
   MAIN_ROUTE,
   REGISTER_ROUTE,
+  STATISTICS_ROUTE,
 } from "./paths";
-import { GreeterPage, LoginPage, MainPage, RegisterPage } from "~/pages";
+import {
+  GreeterPage,
+  LoginPage,
+  MainPage,
+  RegisterPage,
+  StatisticsPage,
+} from "~/pages";
 import { AppRouter } from "~/app/app-router";
 
 export const publicRoutes: RouteObject[] = [
@@ -30,6 +37,10 @@ export const authRoutes: RouteObject[] = [
   {
     path: MAIN_ROUTE,
     element: <MainPage />,
+  },
+  {
+    path: STATISTICS_ROUTE,
+    element: <StatisticsPage />,
   },
 ];
 

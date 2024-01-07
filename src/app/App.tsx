@@ -4,11 +4,18 @@ import { router } from "~/shared/router/router";
 import { ChakraUiProvider } from "./providers";
 import { Loader } from "~/shared/ui";
 import { observer } from "mobx-react-lite";
+import { Flex } from "@chakra-ui/react";
 
 const App: FC = observer(() => {
   return (
     <ChakraUiProvider>
-      <Suspense fallback={<Loader />}>
+      <Suspense
+        fallback={
+          <Flex h={"100vh"} justifyContent={"center"} alignItems={"center"}>
+            <Loader />
+          </Flex>
+        }
+      >
         <RouterProvider router={router} />
       </Suspense>
     </ChakraUiProvider>

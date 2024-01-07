@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { type StatusType } from "~/shared/model/status-type";
 import { api } from "~/shared/api/api";
 
-interface IBill {
+export interface IBill {
   id: number;
   title: string;
   balance: number;
