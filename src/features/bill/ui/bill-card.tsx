@@ -1,18 +1,25 @@
 import { type FC, type ReactNode, useEffect } from "react";
-import { Card, CardBody, Text } from "@chakra-ui/react";
+import { Card, CardBody, Text, Tooltip } from "@chakra-ui/react";
 import { CurrencyFormatter } from "~/shared/ui";
 import { colorizeBalance } from "~/shared/lib/colorize-balance";
 import { motion, useAnimation } from "framer-motion";
+import { router } from "~/shared/router/router";
+import { BILL_ROUTE } from "~/shared/router/paths";
 
 const BillCard: FC<{
   balance?: number;
   title?: string;
   index: number;
+  id?: number;
   children?: ReactNode;
-}> = ({ balance, title, index, children }) => {
+}> = ({ balance, title, index, children, id }) => {
   const controls = useAnimation();
 
   const initialState = { opacity: 0.5, scale: 0 };
+
+  const handleClick = (): void => {
+    router.navigate(BILL_ROUTE + "/" + id);
+  };
 
   useEffect(() => {
     controls.start({
@@ -38,9 +45,24 @@ const BillCard: FC<{
 
   return (
     <motion.div initial={initialState} animate={controls}>
-      <Card h={"135px"}>
+      <Card
+        onClick={handleClick}
+        h={"135px"}
+        cursor={"pointer"}
+        _hover={{ bg: "gray.600" }}
+        _active={{ bg: "gray.500" }}
+        transition={"all 0.2s"}
+      >
         <CardBody gap={2} display={"flex"} flexDirection={"column"}>
-          <Text>{title}</Text>
+          <Tooltip label={title} aria-label={"Tooltip"} placement={"top"}>
+            <Text
+              whiteSpace={"nowrap"}
+              overflow={"hidden"}
+              textOverflow={"ellipsis"}
+            >
+              {title}
+            </Text>
+          </Tooltip>
           <Text color={colorizeBalance(balance)} as={"span"}>
             Баланс:
             <Text fontWeight={"bold"}>

@@ -1,5 +1,6 @@
 import { type RouteObject, createBrowserRouter } from "react-router-dom";
 import {
+  BILL_ROUTE,
   GREETER_ROUTE,
   LOGIN_ROUTE,
   MAIN_ROUTE,
@@ -7,6 +8,7 @@ import {
   STATISTICS_ROUTE,
 } from "./paths";
 import {
+  BillPage,
   GreeterPage,
   LoginPage,
   MainPage,
@@ -41,6 +43,10 @@ export const authRoutes: RouteObject[] = [
   {
     path: STATISTICS_ROUTE,
     element: <StatisticsPage />,
+  },
+  {
+    path: BILL_ROUTE + "/:id",
+    element: <BillPage />,
   },
 ];
 

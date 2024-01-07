@@ -12,6 +12,7 @@ interface UseFormValidation {
   isValid: boolean;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  setFormValues: (values: FormValues) => void;
 }
 
 const useForm = (
@@ -29,6 +30,10 @@ const useForm = (
       ...values,
       [name]: value,
     });
+  };
+
+  const setFormValues = (values: FormValues): void => {
+    setValues(values);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
@@ -62,6 +67,7 @@ const useForm = (
     isValid,
     handleChange,
     handleSubmit,
+    setFormValues,
   };
 };
 

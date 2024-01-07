@@ -7,3 +7,4 @@ export const RegisterPage = lazy(async () => await import("./register"));
 export const GreeterPage = lazy(async () => await import("./greeter"));
 // export const StatisticsPage = lazy(async () => await import("./statistics"));
 export { default as StatisticsPage } from "./statistics";
+export { default as BillPage } from "./bill";

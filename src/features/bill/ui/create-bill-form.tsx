@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FC, useRef } from "react";
+import { type ChangeEvent, type FC, useEffect, useRef } from "react";
 import {
   Button,
   FormControl,
@@ -50,11 +50,15 @@ const CreateBillForm: FC<{
     }
   };
 
-  const { values, errors, handleChange, handleSubmit } = useForm(
+  const { values, errors, handleChange, handleSubmit, setFormValues } = useForm(
     initialValues,
     validationRules,
     onSubmit,
   );
+
+  useEffect(() => {
+    setFormValues(initialValues);
+  }, [bills]);
 
   const isLoading = status === "loading";
 
@@ -73,6 +77,7 @@ const CreateBillForm: FC<{
                 value={values.title}
                 onChange={handleChange}
                 ref={initialRef}
+                maxLength={30}
                 placeholder="Название"
               />
               <FormErrorMessage>{errors.title}</FormErrorMessage>
@@ -89,6 +94,7 @@ const CreateBillForm: FC<{
                 name={"balance"}
                 precision={2}
                 step={500}
+                max={999_999_999_999}
               >
                 <NumberInputField />
                 <NumberInputStepper>
