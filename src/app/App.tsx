@@ -5,6 +5,7 @@ import { ChakraUiProvider } from "./providers";
 import { Loader } from "~/shared/ui";
 import { observer } from "mobx-react-lite";
 import { Flex } from "@chakra-ui/react";
+import "./styles/globals.css";
 
 const App: FC = observer(() => {
   return (

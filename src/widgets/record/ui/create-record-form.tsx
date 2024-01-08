@@ -2,6 +2,7 @@ import { type FC } from "react";
 import {
   Drawer,
   DrawerBody,
+  DrawerCloseButton,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
@@ -24,11 +25,17 @@ const CreateRecordForm: FC<{
   type: ArticleType;
 }> = ({ isOpen, onClose, type }) => {
   return (
-    <Drawer isOpen={isOpen} onClose={onClose} placement={"bottom"}>
+    <Drawer
+      isOpen={isOpen}
+      onClose={onClose}
+      placement={"bottom"}
+      size={"full"}
+    >
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader>
           {"Добавление " + (type === "income" ? "дохода" : "расхода")}
+          <DrawerCloseButton />
         </DrawerHeader>
         <DrawerBody>
           <form>

@@ -10,12 +10,7 @@ export interface IArticle {
   title: string;
   id: number;
   icon: string;
-}
-
-export interface ICreateArticle {
-  color: null | string;
-  title: string;
-  icon: null | string;
+  default: boolean;
 }
 
 class ArticlesModule {
@@ -27,6 +22,10 @@ class ArticlesModule {
 
   status: StatusType = "idle";
 
+  get totalUserArticles(): number {
+    return this.articles.filter((item) => !item.default).length;
+  }
+
   setStatus = (status: StatusType): void => {
     this.status = status;
   };
@@ -37,7 +36,6 @@ class ArticlesModule {
 
   createArticle = async (data: FormValues): Promise<boolean> => {
     try {
-      this.setStatus("loading");
       const res = await api.post<IArticle>("/articles", data);
       this.setArticles([...this.articles, res.data]);
       this.setStatus("success");
@@ -45,6 +43,17 @@ class ArticlesModule {
     } catch (e) {
       this.setStatus("error");
       return false;
+    }
+  };
+
+  fetchArticles = async (): Promise<void> => {
+    try {
+      this.setStatus("loading");
+      const res = await api.get<IArticle[]>("/articles");
+      this.setArticles(res.data);
+      this.setStatus("success");
+    } catch (e) {
+      this.setStatus("error");
     }
   };
 }

@@ -52,7 +52,7 @@ const useForm = (
       if (Object.prototype.hasOwnProperty.call(rules, key)) {
         const value = values[key];
         const validationRule = rules[key];
-
+        console.log(values);
         if (validationRule.required && !value) {
           errors[key] = "Это поле обязательно для заполнения";
         }

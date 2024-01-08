@@ -32,13 +32,15 @@ const CreateArticleForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
 
   const onSubmit = async (): Promise<void> => {
     const result = await createArticle(values);
-    console.log(result);
+    if (result) {
+      onClose();
+    }
   };
 
   const initialValues: FormValues = {
     title: "",
-    color: null,
-    icon: null,
+    color: "",
+    icon: "",
   };
 
   const validationRules = {
@@ -58,7 +60,7 @@ const CreateArticleForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
   return (
     <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent mt={4}>
         <ModalHeader>Создание категории</ModalHeader>
         <ModalCloseButton />
         <form onSubmit={handleSubmit}>
@@ -75,7 +77,7 @@ const CreateArticleForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
               />
               <FormErrorMessage>{errors.title}</FormErrorMessage>
             </FormControl>
-            <FormControl>
+            <FormControl isInvalid={!!errors.color}>
               <FormLabel>Выберите цвет</FormLabel>
               <SimpleGrid columns={12}>
                 {AvailableColors.map((color) => (
@@ -99,7 +101,7 @@ const CreateArticleForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
               </SimpleGrid>
               <FormErrorMessage>{errors.title}</FormErrorMessage>
             </FormControl>
-            <FormControl>
+            <FormControl isInvalid={!!errors.icon}>
               <FormLabel>Выберите иконку</FormLabel>
               <SimpleGrid columns={6} gap={1}>
                 {Object.entries(ArticleIcons).map(([key, value]) => (
@@ -138,7 +140,7 @@ const CreateArticleForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
             >
               Создать
             </Button>
-            <Button>Отмена</Button>
+            <Button onClick={onClose}>Отмена</Button>
           </ModalFooter>
         </form>
       </ModalContent>
