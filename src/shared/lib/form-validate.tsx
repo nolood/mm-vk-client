@@ -1,6 +1,6 @@
 import { type ChangeEvent, type FormEvent, useState } from "react";
 
-type FormValues = Record<string, string | number>;
+export type FormValues = Record<string, string>;
 
 type ValidationRules = Record<string, { required: boolean }>;
 

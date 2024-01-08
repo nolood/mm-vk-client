@@ -1,4 +1,4 @@
-import { type FC, useState } from "react";
+import { type FC } from "react";
 import {
   Button,
   Card,
@@ -9,17 +9,15 @@ import {
   Stack,
   StackDivider,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 import { CurrencyFormatter } from "~/shared/ui";
-import { CreateRecordForm } from "~/features";
-import { type ArticleType } from "~/features/record/model/record";
+import { type ArticleType } from "~/entities/article/model/article";
 
-const BillStat: FC = () => {
-  const [type, setType] = useState<ArticleType>("income");
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
+const BillStat: FC<{
+  setType: (type: ArticleType) => void;
+  onOpen: () => void;
+}> = ({ setType, onOpen }) => {
   const handleAddRecord = (type: ArticleType): void => {
     setType(type);
     onOpen();
@@ -27,7 +25,6 @@ const BillStat: FC = () => {
 
   return (
     <Card>
-      <CreateRecordForm isOpen={isOpen} onClose={onClose} type={type} />
       <Stack direction={"row"} divider={<StackDivider />}>
         <Flex flex={"1"} flexDirection={"column"} alignItems={"center"}>
           <CardBody

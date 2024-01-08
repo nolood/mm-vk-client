@@ -1,14 +1,18 @@
-import { type FC, useEffect } from "react";
+import { type FC, useEffect, useState } from "react";
 import { PageAnim } from "~/shared/ui";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
 import { BillBalance, BillHeader, BillStat } from "~/widgets";
 import { observer } from "mobx-react-lite";
 import { BillModule } from "~/widgets/bills/model";
 import { useParams } from "react-router-dom";
+import { CreateRecordForm } from "~/features";
+import type { ArticleType } from "~/entities/article/model/article";
 
 const Bill: FC = observer(() => {
   const params = useParams();
   const { fetchBill } = BillModule;
+  const [type, setType] = useState<ArticleType>("income");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (typeof params.id === "string") {
@@ -21,7 +25,8 @@ const Bill: FC = observer(() => {
       <Flex flexDirection={"column"} gap={4}>
         <BillHeader />
         <BillBalance />
-        <BillStat />
+        <BillStat setType={setType} onOpen={onOpen} />
+        <CreateRecordForm isOpen={isOpen} onClose={onClose} type={type} />
       </Flex>
     </PageAnim>
   );
