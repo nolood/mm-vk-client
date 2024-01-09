@@ -17,7 +17,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { type ArticleType } from "~/entities/article/model/article";
-import { ArticlesList } from "~/features";
+import { ArticlesList, RecordDatePicker } from "~/features";
 
 const CreateRecordForm: FC<{
   isOpen: boolean;
@@ -58,6 +58,10 @@ const CreateRecordForm: FC<{
               <FormControl>
                 <FormLabel>Описание</FormLabel>
                 <Textarea name={"description"} placeholder={"Описание"} />
+              </FormControl>
+              <FormControl defaultValue={Date.now().toString()}>
+                <FormLabel>Дата</FormLabel>
+                <RecordDatePicker />
               </FormControl>
               <FormControl>
                 <FormLabel>Категория</FormLabel>
