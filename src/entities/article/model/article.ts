@@ -11,6 +11,7 @@ export interface IArticle {
   id: number;
   icon: string;
   default: boolean;
+  user_id?: number | null;
 }
 
 class ArticlesModule {

@@ -6,6 +6,7 @@ import {
   Flex,
   Heading,
   Icon,
+  Skeleton,
   Stack,
   StackDivider,
   Text,
@@ -13,15 +14,23 @@ import {
 import { FaPlus } from "react-icons/fa";
 import { CurrencyFormatter } from "~/shared/ui";
 import { type ArticleType } from "~/entities/article/model/article";
+import { BillModule } from "~/widgets/bills/model";
+import { observer } from "mobx-react-lite";
 
 const BillStat: FC<{
   setType: (type: ArticleType) => void;
   onOpen: () => void;
-}> = ({ setType, onOpen }) => {
+}> = observer(({ setType, onOpen }) => {
+  const { bill, status } = BillModule;
+
   const handleAddRecord = (type: ArticleType): void => {
     setType(type);
     onOpen();
   };
+
+  const isLoading = status === "loading" || !bill;
+
+  if (isLoading) return <Skeleton height={"168px"} width={"100%"} />;
 
   return (
     <Card>
@@ -35,7 +44,7 @@ const BillStat: FC<{
           >
             <Heading size={"md"}>Доход</Heading>
             <Text fontSize={"xl"} color={"green.300"} fontWeight={"bold"}>
-              <CurrencyFormatter balance={1000} />
+              <CurrencyFormatter balance={bill.total_income} />
             </Text>
             <Button
               onClick={() => {
@@ -56,7 +65,7 @@ const BillStat: FC<{
           >
             <Heading size={"md"}>Расход</Heading>
             <Text fontSize={"xl"} color={"red.300"} fontWeight={"bold"}>
-              <CurrencyFormatter balance={1000} />
+              <CurrencyFormatter balance={bill.total_expense} />
             </Text>
             <Button
               onClick={() => {
@@ -71,6 +80,6 @@ const BillStat: FC<{
       </Stack>
     </Card>
   );
-};
+});
 
 export default BillStat;

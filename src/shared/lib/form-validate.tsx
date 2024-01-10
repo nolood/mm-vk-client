@@ -2,7 +2,7 @@ import { type ChangeEvent, type FormEvent, useState } from "react";
 
 export type FormValues = Record<string, string>;
 
-type ValidationRules = Record<string, { required: boolean }>;
+type ValidationRules = Record<string, { required?: boolean; min?: number }>;
 
 type FormErrors = Record<string, string>;
 
@@ -52,9 +52,11 @@ const useForm = (
       if (Object.prototype.hasOwnProperty.call(rules, key)) {
         const value = values[key];
         const validationRule = rules[key];
-        console.log(values);
         if (validationRule.required && !value) {
           errors[key] = "Это поле обязательно для заполнения";
+        }
+        if (validationRule.min && Number(value) < validationRule.min) {
+          errors[key] = `Значение должно быть больше ${validationRule.min}`;
         }
       }
     }

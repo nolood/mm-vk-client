@@ -4,7 +4,12 @@ import { type IArticle } from "~/entities/article/model/article";
 import { ArticleIcons } from "~/shared/ui";
 import { motion, useAnimation } from "framer-motion";
 
-const Article: FC<{ item: IArticle; index: number }> = ({ item, index }) => {
+const Article: FC<{
+  item: IArticle;
+  index: number;
+  onClick?: (id: number) => void;
+  selected?: boolean;
+}> = ({ item, index, onClick, selected }) => {
   const controls = useAnimation();
 
   const initialState = { opacity: 0.5, scale: 0 };
@@ -23,12 +28,17 @@ const Article: FC<{ item: IArticle; index: number }> = ({ item, index }) => {
   return (
     <motion.div initial={initialState} animate={controls}>
       <Flex
+        onClick={() => {
+          if (onClick) {
+            onClick(item.id);
+          }
+        }}
         key={item.id}
         _hover={{ bgColor: item.color.split(".")[0] + ".400" }}
         flexDirection={"column"}
         justifyContent={"center"}
         alignItems={"center"}
-        bgColor={item.color}
+        bgColor={selected ? item.color.split(".")[0] + ".300" : item.color}
         borderRadius={"full"}
         cursor={"pointer"}
         transition={"all 0.2s"}

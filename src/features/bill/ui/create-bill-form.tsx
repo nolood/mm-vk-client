@@ -56,11 +56,11 @@ const CreateBillForm: FC<{
     onSubmit,
   );
 
+  const isLoading = status === "loading";
+
   useEffect(() => {
     setFormValues(initialValues);
   }, [bills]);
-
-  const isLoading = status === "loading";
 
   return (
     <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>

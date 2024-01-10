@@ -10,7 +10,7 @@ import type { ArticleType } from "~/entities/article/model/article";
 
 const Bill: FC = observer(() => {
   const params = useParams();
-  const { fetchBill } = BillModule;
+  const { fetchBill, bill } = BillModule;
   const [type, setType] = useState<ArticleType>("income");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -26,7 +26,12 @@ const Bill: FC = observer(() => {
         <BillHeader />
         <BillBalance />
         <BillStat setType={setType} onOpen={onOpen} />
-        <CreateRecordForm isOpen={isOpen} onClose={onClose} type={type} />
+        <CreateRecordForm
+          billId={bill?.id}
+          isOpen={isOpen}
+          onClose={onClose}
+          type={type}
+        />
       </Flex>
     </PageAnim>
   );
