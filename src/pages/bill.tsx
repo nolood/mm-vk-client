@@ -1,7 +1,7 @@
 import { type FC, useEffect, useState } from "react";
-import { PageAnim } from "~/shared/ui";
+import { PageAnim, ScrollPageLayout } from "~/shared/ui";
 import { Flex, useDisclosure } from "@chakra-ui/react";
-import { BillBalance, BillHeader, BillStat } from "~/widgets";
+import { BillBalance, BillHeader, BillStat, RecordsList } from "~/widgets";
 import { observer } from "mobx-react-lite";
 import { BillModule } from "~/widgets/bills/model";
 import { useParams } from "react-router-dom";
@@ -21,19 +21,22 @@ const Bill: FC = observer(() => {
   }, []);
 
   return (
-    <PageAnim>
-      <Flex flexDirection={"column"} gap={4}>
-        <BillHeader />
-        <BillBalance />
-        <BillStat setType={setType} onOpen={onOpen} />
-        <CreateRecordForm
-          billId={bill?.id}
-          isOpen={isOpen}
-          onClose={onClose}
-          type={type}
-        />
-      </Flex>
-    </PageAnim>
+    <ScrollPageLayout>
+      <PageAnim>
+        <Flex flexDirection={"column"} gap={4}>
+          <BillHeader />
+          <BillBalance />
+          <BillStat setType={setType} onOpen={onOpen} />
+          <RecordsList billId={bill?.id} />
+          <CreateRecordForm
+            billId={bill?.id}
+            isOpen={isOpen}
+            onClose={onClose}
+            type={type}
+          />
+        </Flex>
+      </PageAnim>
+    </ScrollPageLayout>
   );
 });
 

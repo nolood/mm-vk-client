@@ -32,6 +32,17 @@ class RecordsModule {
     this.status = status;
   };
 
+  fetchRecords = async (billId: number): Promise<void> => {
+    try {
+      this.setStatus("loading");
+      const res = await api.get<IRecord[]>(`/records/${billId}`);
+      this.records = res.data;
+      this.setStatus("success");
+    } catch (e) {
+      this.setStatus("error");
+    }
+  };
+
   createRecord = async (data: {
     type_id: number;
     amount: number;
