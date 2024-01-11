@@ -5,7 +5,7 @@ import {
   type IArticle,
 } from "~/entities/article/model/article";
 import { api } from "~/shared/api/api";
-import { BillModule } from "~/widgets/bills/model";
+import { BillModule, BillsModule } from "~/widgets/bills/model";
 
 export interface IRecord {
   id: number;
@@ -44,7 +44,11 @@ class RecordsModule {
       const res = await api.post<IRecord>("/records", data);
       this.records = [...this.records, res.data];
       const bill = BillModule;
+      const bills = BillsModule;
+      const newBalance =
+        bill.bill.balance + data.amount * (data.type_id === 1 ? 1 : -1);
       bill.changeBalance(data.amount * (data.type_id === 1 ? 1 : -1));
+      bills.changeBillBalance(data.bill_id, newBalance);
       this.setStatus("success");
       return true;
     } catch (e) {

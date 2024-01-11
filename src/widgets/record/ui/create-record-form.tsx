@@ -57,7 +57,6 @@ const CreateRecordForm: FC<{
   const validationRules = {
     amount: { required: true, min: 1 },
     date: { required: true },
-    description: { required: true },
     article: { required: true },
   };
 
