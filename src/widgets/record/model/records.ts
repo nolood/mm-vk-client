@@ -32,12 +32,23 @@ class RecordsModule {
     this.status = status;
   };
 
-  fetchRecords = async (billId: number): Promise<void> => {
+  addRecords = (records: IRecord[]): void => {
+    this.records = this.records.concat(records);
+  };
+
+  fetchRecords = async (
+    billId: number,
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<IRecord[]> => {
     try {
       this.setStatus("loading");
-      const res = await api.get<IRecord[]>(`/records/${billId}`);
-      this.records = res.data;
+      const res = await api.get<IRecord[]>(
+        `/records/${billId}?page=${page}&limit=${limit}`,
+      );
+      this.addRecords(res.data);
       this.setStatus("success");
+      return res.data;
     } catch (e) {
       this.setStatus("error");
     }
