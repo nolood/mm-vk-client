@@ -117,6 +117,7 @@ const CreateRecordForm: FC<{
                       target: { name: "description", value: e.target.value },
                     } as ChangeEvent<HTMLInputElement>);
                   }}
+                  maxLength={500}
                   value={values.description}
                   name={"description"}
                   placeholder={"Описание"}

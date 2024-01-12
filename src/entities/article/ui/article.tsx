@@ -9,7 +9,8 @@ const Article: FC<{
   index: number;
   onClick?: (id: number) => void;
   selected?: boolean;
-}> = ({ item, index, onClick, selected }) => {
+  disabled?: boolean;
+}> = ({ item, index, onClick, selected, disabled }) => {
   const controls = useAnimation();
 
   const initialState = { opacity: 0.5, scale: 0 };
@@ -34,13 +35,13 @@ const Article: FC<{
           }
         }}
         key={item.id}
-        _hover={{ bgColor: item.color.split(".")[0] + ".400" }}
+        _hover={{ bgColor: !disabled && item.color.split(".")[0] + ".400" }}
         flexDirection={"column"}
         justifyContent={"center"}
         alignItems={"center"}
         bgColor={selected ? item.color.split(".")[0] + ".300" : item.color}
         borderRadius={"full"}
-        cursor={"pointer"}
+        cursor={!disabled && "pointer"}
         transition={"all 0.2s"}
         w={"100%"}
         h={"80px"}

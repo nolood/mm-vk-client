@@ -6,6 +6,7 @@ const PageAnim: FC<{ children: ReactNode }> = ({ children }) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 0.3 } }}
+      style={{ paddingBottom: "80px" }}
     >
       {children}
     </motion.div>

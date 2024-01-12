@@ -53,7 +53,7 @@ class RecordsModule {
   }): Promise<boolean> => {
     try {
       const res = await api.post<IRecord>("/records", data);
-      this.records = [...this.records, res.data];
+      this.records = [res.data, ...this.records];
       const bill = BillModule;
       const bills = BillsModule;
       const newBalance =
