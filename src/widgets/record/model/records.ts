@@ -37,12 +37,11 @@ class RecordsModule {
   };
 
   fetchRecords = async (
-    billId: number,
     page: number = 1,
     limit: number = 10,
+    billId: number,
   ): Promise<IRecord[]> => {
     try {
-      this.setStatus("loading");
       const res = await api.get<IRecord[]>(
         `/records/${billId}?page=${page}&limit=${limit}`,
       );
@@ -54,6 +53,11 @@ class RecordsModule {
     }
   };
 
+  reset = (): void => {
+    this.records = [];
+    this.status = "idle";
+  };
+
   createRecord = async (data: {
     type_id: number;
     amount: number;
@@ -63,10 +67,10 @@ class RecordsModule {
     date: string;
   }): Promise<boolean> => {
     try {
-      const res = await api.post<IRecord>("/records", data);
-      this.records = [res.data, ...this.records];
       const bill = BillModule;
       const bills = BillsModule;
+      const res = await api.post<IRecord>("/records", data);
+      this.records = [res.data, ...this.records];
       const newBalance =
         bill.bill.balance + data.amount * (data.type_id === 1 ? 1 : -1);
       bill.changeBalance(data.amount * (data.type_id === 1 ? 1 : -1));

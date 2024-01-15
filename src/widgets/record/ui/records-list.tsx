@@ -8,14 +8,20 @@ const RecordsList: FC<{ billId?: number }> = observer(({ billId }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isMore, setIsMore] = useState<boolean>(true);
   const [fetching, setFetching] = useState<boolean>(true);
-  const [scrollPosition, setScrollPosition] = useState<number>(0);
 
-  const { records, fetchRecords, status } = RecordsModule;
+  const { records, fetchRecords, status, reset } = RecordsModule;
 
   const isLoading = status === "loading";
 
+  const handleReset = (): void => {
+    reset();
+    setCurrentPage(1);
+    setIsMore(true);
+    setFetching(false);
+  };
+
   const fetchItems = async (): Promise<void> => {
-    const data = await fetchRecords(billId, currentPage, 20);
+    const data = await fetchRecords(currentPage, 20, billId);
     setIsMore(() => !!data.length);
   };
 
@@ -27,11 +33,10 @@ const RecordsList: FC<{ billId?: number }> = observer(({ billId }) => {
       };
     };
   }): void => {
-    setScrollPosition(e.target.documentElement.scrollTop);
     if (
       e.target.documentElement.scrollHeight -
         (e.target.documentElement.scrollTop + window.innerHeight) <
-      500
+      600
     ) {
       setFetching(true);
     }
@@ -44,7 +49,6 @@ const RecordsList: FC<{ billId?: number }> = observer(({ billId }) => {
           setCurrentPage((prev) => prev + 1);
         })
         .finally(() => {
-          window.scrollTo(0, scrollPosition);
           setFetching(false);
         });
     }
@@ -55,7 +59,7 @@ const RecordsList: FC<{ billId?: number }> = observer(({ billId }) => {
 
     return () => {
       document.removeEventListener("scroll", scrollHandler as () => void);
-      // reset();
+      handleReset();
     };
   }, []);
 

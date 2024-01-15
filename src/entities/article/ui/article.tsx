@@ -13,17 +13,21 @@ const Article: FC<{
 }> = ({ item, index, onClick, selected, disabled }) => {
   const controls = useAnimation();
 
-  const initialState = { opacity: 0.5, scale: 0 };
+  const initialState = disabled
+    ? { opacity: 1, scale: 1 }
+    : { opacity: 0.5, scale: 0 };
 
   useEffect(() => {
-    controls.start({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.2,
-        delay: index < 10 ? index * 0.02 : 10 * 0.02,
-      },
-    });
+    if (!disabled) {
+      controls.start({
+        opacity: 1,
+        scale: 1,
+        transition: {
+          duration: 0.2,
+          delay: index < 10 ? index * 0.02 : 10 * 0.02,
+        },
+      });
+    }
   }, []);
 
   return (
