@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeAutoObservable } from "mobx";
 import { type StatusType } from "~/shared/model/status-type";
 import {
   type ArticleType,
@@ -58,6 +58,7 @@ class RecordsModule {
     this.status = "idle";
   };
 
+  @action
   createRecord = async (data: {
     type_id: number;
     amount: number;

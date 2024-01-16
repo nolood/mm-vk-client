@@ -17,6 +17,11 @@ class BillModule {
 
   status: StatusType = "idle";
 
+  reset = (): void => {
+    this.setBill(null);
+    this.status = "idle";
+  };
+
   changeBalance = (amount: number): void => {
     if (this.bill) {
       this.bill = {
