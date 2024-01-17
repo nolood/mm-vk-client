@@ -10,3 +10,4 @@ export { default as RecordsList } from "./record/ui/records-list";
 export { default as BillSelect } from "./bills/ui/bill-select";
 export { default as StatisticsHeader } from "./statistics/ui/statistics-header";
 export { default as CardSelect } from "./statistics/ui/card-select";
+export { default as ChartDataModule } from "./statistics/model/chart-data";

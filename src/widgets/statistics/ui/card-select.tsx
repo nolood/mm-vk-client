@@ -1,14 +1,14 @@
-import { type FC } from "react";
+import { type Dispatch, type FC, type SetStateAction } from "react";
 import { Card, CardBody, Flex } from "@chakra-ui/react";
 
 interface Item {
-  id: number;
+  id: number | string;
   title: string;
 }
 
 const CardSelect: FC<{
-  value?: number;
-  onChange: (value: number) => void;
+  value?: number | string;
+  onChange: Dispatch<SetStateAction<string | number>>;
   options: Item[];
 }> = ({ value, onChange, options }) => {
   return (

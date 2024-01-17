@@ -1,6 +1,6 @@
 export const periodsData = [
-  { id: 0, title: "Год" },
-  { id: 1, title: "Месяц" },
+  { id: "year", title: "Год" },
+  { id: "month", title: "Месяц" },
 ];
 
 export const typesData = [
