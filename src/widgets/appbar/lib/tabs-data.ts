@@ -1,6 +1,6 @@
 import { FaHome } from "react-icons/fa";
 import { MAIN_ROUTE, STATISTICS_ROUTE } from "~/shared/router/paths";
-
+import { IoIosStats } from "react-icons/io";
 export const tabsData = [
   {
     id: 1,
@@ -10,14 +10,8 @@ export const tabsData = [
   },
   {
     id: 2,
-    icon: FaHome,
+    icon: IoIosStats,
     title: "Статистика",
     path: STATISTICS_ROUTE,
-  },
-  {
-    id: 3,
-    icon: FaHome,
-    title: "Tab 3",
-    path: MAIN_ROUTE,
   },
 ];

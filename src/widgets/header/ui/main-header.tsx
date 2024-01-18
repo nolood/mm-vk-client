@@ -1,6 +1,6 @@
 import { type FC } from "react";
 import { Flex } from "@chakra-ui/react";
-import { GreeterText, NotificationBadge } from "~/features";
+import { GreeterText } from "~/features";
 
 const MainHeader: FC = () => {
   return (
@@ -8,7 +8,7 @@ const MainHeader: FC = () => {
       <Flex flexDirection={"column"}>
         <GreeterText />
       </Flex>
-      <NotificationBadge />
+      {/* <NotificationBadge /> */}
     </Flex>
   );
 };

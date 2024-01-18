@@ -1,5 +1,5 @@
 import { type FC, useEffect } from "react";
-import { Box, Skeleton } from "@chakra-ui/react";
+import { Flex, Skeleton, Text } from "@chakra-ui/react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,31 +22,14 @@ ChartJS.register(
   Legend,
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top" as const,
-    },
-  },
-  scales: {
-    x: {
-      stacked: true,
-    },
-    y: {
-      stacked: true,
-    },
-  },
-};
-
 const StatisticsCharts: FC<{
   activeType: number;
   activePeriod: string;
   activeBillId: number;
 }> = observer(({ activeType, activePeriod, activeBillId }) => {
-  const { data, fetchData, status } = ChartDataModule;
+  const { data, fetchData, status, options } = ChartDataModule;
 
-  const isLoading = status === "loading" || !data;
+  const isLoading = status === "loading";
 
   const handleFetchData = (): void => {
     fetchData(activeBillId, activePeriod, activeType);
@@ -56,14 +39,24 @@ const StatisticsCharts: FC<{
     handleFetchData();
   }, [activePeriod, activeType, activeBillId]);
 
+  if (!activeBillId)
+    return (
+      <Flex justifyContent={"center"} alignItems={"center"}>
+        <Text mt={50}>Выберите счет чтобы увидеть график</Text>
+      </Flex>
+    );
+
+  if (isLoading || !data)
+    return (
+      <Flex justifyContent={"center"} alignItems={"center"} w={"100%"}>
+        <Skeleton h={"340px"} w={"80%"} borderRadius={10} />
+      </Flex>
+    );
+
   return (
-    <Box h={440}>
-      {!isLoading ? (
-        <Bar data={data} options={options} />
-      ) : (
-        <Skeleton h={"100%"} w={"100%"} />
-      )}
-    </Box>
+    <Flex height={340} width={"100%"} justifyContent={"center"}>
+      <Bar data={data} options={options} />
+    </Flex>
   );
 });
 

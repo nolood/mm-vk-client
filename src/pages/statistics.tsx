@@ -13,7 +13,7 @@ const Statistics: FC = () => {
   const [activeType, setActiveType] = useState<number>(0);
   return (
     <PageAnim>
-      <Flex flexDirection={"column"} gap={4}>
+      <Flex flexDirection={"column"} gap={3}>
         <StatisticsHeader />
         <BillSelect onChange={setCurrentBillId} value={currentBillId} />
         <CardSelect
