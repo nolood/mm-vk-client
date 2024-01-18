@@ -28,7 +28,7 @@ module.exports = {
   plugins: ["react", "@typescript-eslint"],
   rules: {
     semi: ["error", "always"],
-    indent: ["warn", 2],
+    indent: ["off", 2],
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",

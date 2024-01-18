@@ -37,12 +37,14 @@ class ChartDataModule {
       );
       this.data = {
         ...res.data,
-        datasets: res.data.datasets.map((dataset) => {
-          return {
-            ...dataset,
-            backgroundColor: colorsEncrypting[dataset.backgroundColor],
-          };
-        }),
+        datasets: !res.data.datasets
+          ? []
+          : res.data.datasets.map((dataset) => {
+              return {
+                ...dataset,
+                backgroundColor: colorsEncrypting[dataset.backgroundColor],
+              };
+            }),
       };
       this.setStatus("success");
     } catch (e) {

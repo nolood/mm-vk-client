@@ -48,8 +48,6 @@ const StatisticsCharts: FC<{
 
   const isLoading = status === "loading" || !data;
 
-  console.log(data);
-
   const handleFetchData = (): void => {
     fetchData(activeBillId, activePeriod, activeType);
   };
@@ -59,11 +57,11 @@ const StatisticsCharts: FC<{
   }, [activePeriod, activeType, activeBillId]);
 
   return (
-    <Box>
+    <Box h={440}>
       {!isLoading ? (
         <Bar data={data} options={options} />
       ) : (
-        <Skeleton h={440} w={"100%"} />
+        <Skeleton h={"100%"} w={"100%"} />
       )}
     </Box>
   );
