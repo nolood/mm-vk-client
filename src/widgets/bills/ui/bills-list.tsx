@@ -35,13 +35,13 @@ const BillsList: FC = observer(() => {
     );
 
   return (
-    <Box
-      overflowY={"auto"}
-      overflowX={"hidden"}
-      maxH={"calc(100vh - 150px)"}
-      pb={6}
-    >
-      <SimpleGrid columns={3} gap={6} justifyItems={"stretch"}>
+    <Box maxH={"calc(100vh - 150px)"}>
+      <SimpleGrid
+        paddingBottom={"80px"}
+        columns={{ m768: 3, m500: 2 }}
+        gap={6}
+        justifyItems={"stretch"}
+      >
         {bills.map((item, index) => (
           <BillCard key={item.id} {...item} index={index} />
         ))}

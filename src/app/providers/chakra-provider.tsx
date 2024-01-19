@@ -8,6 +8,11 @@ import {
 const ChakraUiProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const theme: ThemeConfig = extendTheme({
     config: { initialColorMode: "dark", useSystemColorMode: true },
+    breakpoints: {
+      m300: "300px",
+      m500: "500px",
+      m768: "768px",
+    },
   });
   return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
 };

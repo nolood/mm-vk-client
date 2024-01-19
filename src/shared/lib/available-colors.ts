@@ -3,6 +3,11 @@ export const AvailableColors = [
   "red.500",
   "blue.500",
   "purple.500",
+  "yellow.500",
+  "orange.500",
+  "teal.500",
+  "cyan.500",
+  "pink.500",
 ];
 
 export const colorsEncrypting: Record<string, string> = {

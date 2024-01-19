@@ -28,7 +28,12 @@ const ArticlesList: FC<{ onChange: (value: string) => void; value: string }> =
     }, []);
 
     return (
-      <SimpleGrid columns={5} gap={2} justifyItems={"stretch"} w={"100%"}>
+      <SimpleGrid
+        columns={{ m300: 1, m500: 2, m768: 3 }}
+        gap={2}
+        justifyItems={"stretch"}
+        w={"100%"}
+      >
         {isLoading &&
           new Array(4)
             .fill(1)

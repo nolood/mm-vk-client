@@ -118,6 +118,8 @@ const CreateRecordForm: FC<{
                     } as ChangeEvent<HTMLInputElement>);
                   }}
                   maxLength={500}
+                  height={"300px"}
+                  resize={"none"}
                   value={values.description}
                   name={"description"}
                   placeholder={"Описание"}
@@ -152,7 +154,7 @@ const CreateRecordForm: FC<{
                 <Button colorScheme={"blue"} mr={3} type={"submit"}>
                   Создать
                 </Button>
-                <Button>Отмена</Button>
+                <Button onClick={onClose}>Отмена</Button>
               </FormControl>
             </Flex>
           </form>

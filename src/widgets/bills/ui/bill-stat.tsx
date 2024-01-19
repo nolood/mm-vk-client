@@ -34,7 +34,10 @@ const BillStat: FC<{
 
   return (
     <Card>
-      <Stack direction={"row"} divider={<StackDivider />}>
+      <Stack
+        direction={{ m300: "column", m500: "row" }}
+        divider={<StackDivider />}
+      >
         <Flex flex={"1"} flexDirection={"column"} alignItems={"center"}>
           <CardBody
             display={"flex"}

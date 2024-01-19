@@ -2,6 +2,7 @@ import { type ChangeEvent, type FC, useRef } from "react";
 import {
   Box,
   Button,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -79,7 +80,7 @@ const CreateArticleForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
             </FormControl>
             <FormControl isInvalid={!!errors.color}>
               <FormLabel>Выберите цвет</FormLabel>
-              <SimpleGrid columns={12}>
+              <Flex flexWrap={"wrap"} gap={4}>
                 {AvailableColors.map((color) => (
                   <Box
                     onClick={() => {
@@ -98,12 +99,12 @@ const CreateArticleForm: FC<{ isOpen: boolean; onClose: () => void }> = ({
                     cursor={"pointer"}
                   />
                 ))}
-              </SimpleGrid>
+              </Flex>
               <FormErrorMessage>{errors.title}</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={!!errors.icon}>
               <FormLabel>Выберите иконку</FormLabel>
-              <SimpleGrid columns={6} gap={1}>
+              <SimpleGrid columns={{ m300: 3 }} gap={1}>
                 {Object.entries(ArticleIcons).map(([key, value]) => (
                   <IconButton
                     bgColor={

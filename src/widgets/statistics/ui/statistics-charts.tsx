@@ -59,7 +59,7 @@ const StatisticsCharts: FC<{
       <motion.div
         style={{
           width: "100%",
-          height: "340px",
+          height: "max-content",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
