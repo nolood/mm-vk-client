@@ -1,15 +1,18 @@
 import { type FC, useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { RecordsModule } from "~/widgets";
-import { Flex, Skeleton } from "@chakra-ui/react";
+import { Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
 import { RecordCard } from "~/features";
 import { BillModule } from "~/widgets/bills/model";
+import { RecordInfo } from "~/entities";
+import { type IRecord } from "~/shared/api/services/records";
 
 const RecordsList: FC<{ billId?: number }> = observer(({ billId }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isMore, setIsMore] = useState<boolean>(true);
   const [fetching, setFetching] = useState<boolean>(true);
-
+  const [activeRecord, setActiveRecord] = useState<IRecord | null>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { records, fetchRecords, status, reset: recordsReset } = RecordsModule;
   const { reset: billReset } = BillModule;
 
@@ -45,6 +48,11 @@ const RecordsList: FC<{ billId?: number }> = observer(({ billId }) => {
     }
   };
 
+  const handleOpenInfo = (record: IRecord): void => {
+    onOpen();
+    setActiveRecord(record);
+  };
+
   useEffect(() => {
     if (fetching && isMore && billId) {
       fetchItems()
@@ -68,6 +76,7 @@ const RecordsList: FC<{ billId?: number }> = observer(({ billId }) => {
 
   return (
     <Flex flexDirection={"column"} gap={4}>
+      <RecordInfo isOpen={isOpen} onClose={onClose} item={activeRecord} />
       {isLoading &&
         new Array(5)
           .fill(0)
@@ -75,7 +84,9 @@ const RecordsList: FC<{ billId?: number }> = observer(({ billId }) => {
             <Skeleton width={"100%"} height={"50px"} key={index} />
           ))}
       {!isLoading &&
-        records.map((item) => <RecordCard key={item.id} item={item} />)}
+        records.map((item) => (
+          <RecordCard open={handleOpenInfo} key={item.id} item={item} />
+        ))}
     </Flex>
   );
 });
