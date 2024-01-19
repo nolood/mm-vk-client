@@ -11,7 +11,7 @@ import {
 import { observer } from "mobx-react-lite";
 import { BillModule } from "~/widgets/bills/model";
 import { useParams } from "react-router-dom";
-import type { ArticleType } from "~/entities/article/model/article";
+import { type ArticleType } from "~/shared/api/services/articles";
 
 const Bill: FC = observer(() => {
   const params = useParams();

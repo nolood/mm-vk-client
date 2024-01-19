@@ -1,23 +1,11 @@
 import { action, makeAutoObservable } from "mobx";
 import { type StatusType } from "~/shared/model/status-type";
-import {
-  type ArticleType,
-  type IArticle,
-} from "~/entities/article/model/article";
-import { api } from "~/shared/api/api";
 import { BillModule, BillsModule } from "~/widgets/bills/model";
-
-export interface IRecord {
-  id: number;
-  amount: number;
-  date: string;
-  description: string;
-  article: IArticle;
-  type: {
-    id: number;
-    value: ArticleType;
-  };
-}
+import {
+  type CreateRecordParams,
+  type IRecord,
+} from "~/shared/api/services/records";
+import { recordsService } from "~/shared/api";
 
 class RecordsModule {
   constructor() {
@@ -37,17 +25,15 @@ class RecordsModule {
   };
 
   fetchRecords = async (
-    page: number = 1,
-    limit: number = 10,
+    page: number,
+    limit: number,
     billId: number,
   ): Promise<IRecord[]> => {
     try {
-      const res = await api.get<IRecord[]>(
-        `/records/${billId}?page=${page}&limit=${limit}`,
-      );
-      this.addRecords(res.data);
+      const data = await recordsService.fetchRecords(page, limit, billId);
+      this.addRecords(data);
       this.setStatus("success");
-      return res.data;
+      return data;
     } catch (e) {
       this.setStatus("error");
     }
@@ -59,23 +45,16 @@ class RecordsModule {
   };
 
   @action
-  createRecord = async (data: {
-    type_id: number;
-    amount: number;
-    description: string;
-    bill_id: number;
-    article_id: number;
-    date: string;
-  }): Promise<boolean> => {
+  createRecord = async (params: CreateRecordParams): Promise<boolean> => {
     try {
       const bill = BillModule;
       const bills = BillsModule;
-      const res = await api.post<IRecord>("/records", data);
-      this.records = [res.data, ...this.records];
+      const data = await recordsService.createRecord(params);
+      this.records = [data, ...this.records];
       const newBalance =
-        bill.bill.balance + data.amount * (data.type_id === 1 ? 1 : -1);
-      bill.changeBalance(data.amount * (data.type_id === 1 ? 1 : -1));
-      bills.changeBillBalance(data.bill_id, newBalance);
+        bill.bill.balance + params.amount * (params.type_id === 1 ? 1 : -1);
+      bill.changeBalance(params.amount * (params.type_id === 1 ? 1 : -1));
+      bills.changeBillBalance(params.bill_id, newBalance);
       this.setStatus("success");
       return true;
     } catch (e) {

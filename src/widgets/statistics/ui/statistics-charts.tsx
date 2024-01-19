@@ -12,6 +12,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import { observer } from "mobx-react-lite";
 import { ChartDataModule } from "~/widgets";
+import { AnimatePresence, motion } from "framer-motion";
 
 ChartJS.register(
   CategoryScale,
@@ -54,9 +55,21 @@ const StatisticsCharts: FC<{
     );
 
   return (
-    <Flex height={340} width={"100%"} justifyContent={"center"}>
-      <Bar data={data} options={options} />
-    </Flex>
+    <AnimatePresence>
+      <motion.div
+        style={{
+          width: "100%",
+          height: "340px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        <Bar data={data} options={options} />
+      </motion.div>
+    </AnimatePresence>
   );
 });
 

@@ -18,12 +18,12 @@ import {
   NumberInputStepper,
   Textarea,
 } from "@chakra-ui/react";
-import { type ArticleType } from "~/entities/article/model/article";
 import { ArticlesList, RecordDatePicker } from "~/features";
 import useForm from "~/shared/lib/form-validate";
 import { DateTime } from "luxon";
 import { RecordsModule } from "~/widgets";
 import { observer } from "mobx-react-lite";
+import { type ArticleType } from "~/shared/api/services/articles";
 
 const CreateRecordForm: FC<{
   isOpen: boolean;

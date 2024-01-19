@@ -1,14 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { type StatusType } from "~/shared/model/status-type";
-import { api } from "~/shared/api/api";
-
-export interface IBill {
-  id: number;
-  title: string;
-  balance: number;
-  created_at: Date;
-  updated_at: Date;
-}
+import { type IBill } from "~/shared/api/services/bills";
+import { billsService } from "~/shared/api";
 
 class BillsModule {
   constructor() {
@@ -39,8 +32,8 @@ class BillsModule {
   fetchBills = async (): Promise<void> => {
     try {
       this.setStatus("loading");
-      const res = await api.get<IBill[]>("/bills");
-      this.setBills(res.data);
+      const data = await billsService.fetchBills();
+      this.setBills(data);
       this.setStatus("success");
     } catch (e) {
       this.setStatus("error");
@@ -49,8 +42,8 @@ class BillsModule {
 
   createBill = async (title: string, balance: number): Promise<boolean> => {
     try {
-      const res = await api.post<IBill>("/bills", { title, balance });
-      this.setBills([...this.bills, res.data]);
+      const data = await billsService.createBill({ title, balance });
+      this.setBills([...this.bills, data]);
       return true;
     } catch (e) {
       this.setStatus("error");

@@ -1,16 +1,8 @@
 import { action, makeAutoObservable } from "mobx";
 import { type StatusType } from "~/shared/model/status-type";
-import { api } from "~/shared/api/api";
 import { colorsEncrypting } from "~/shared/lib/available-colors";
-
-interface ChartData {
-  labels: string[];
-  datasets: Array<{
-    label: string;
-    data: number[];
-    backgroundColor: string;
-  }>;
-}
+import { type ChartData } from "~/shared/api/services/statistics";
+import { statisticsService } from "~/shared/api";
 
 class ChartDataModule {
   constructor() {
@@ -63,15 +55,17 @@ class ChartDataModule {
   ): Promise<void> => {
     try {
       this.setStatus("loading");
-      const res = await api.get<ChartData>(
-        `/statistics?bill_id=${billId}&period=${period}&type=${type}`,
+      const data = await statisticsService.fetchChartStatistics(
+        billId,
+        period,
+        type,
       );
 
       this.setData({
-        ...res.data,
-        datasets: !res.data.datasets
+        ...data,
+        datasets: !data.datasets
           ? []
-          : res.data.datasets
+          : data.datasets
               .filter((dataset) => !dataset.data.every((value) => value === 0))
               .map((dataset) => {
                 return {

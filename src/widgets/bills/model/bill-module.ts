@@ -1,12 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { type IBill } from "~/widgets/bills/model/bills-module";
 import { type StatusType } from "~/shared/model/status-type";
-import { api } from "~/shared/api/api";
-
-type BillWithStat = IBill & {
-  total_income: number;
-  total_expense: number;
-};
+import { type BillWithStat } from "~/shared/api/services/bills";
+import { billsService } from "~/shared/api";
 
 class BillModule {
   constructor() {
@@ -48,8 +43,8 @@ class BillModule {
   fetchBill = async (id: number): Promise<void> => {
     try {
       this.setStatus("loading");
-      const res = await api.get<BillWithStat>(`/bills/${id}`);
-      this.setBill(res.data);
+      const data = await billsService.fetchBill(id);
+      this.setBill(data);
       this.setStatus("success");
     } catch (e) {
       this.setStatus("error");
